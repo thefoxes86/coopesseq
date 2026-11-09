@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Colore principale: verde petrolio */
+  --color-brand-50: #eef8f6;
+  --color-brand-100: #d3eee8;
+  --color-brand-200: #a8dccf;
+  --color-brand-500: #1f9c86;
+  --color-brand-600: #12806d;
+  --color-brand-700: #0f6658;
+  --color-brand-800: #0d5248;
+  --color-brand-900: #0a3f38;
+  --color-brand-950: #062a26;
+
+  /* Accento: arancio caldo */
+  --color-accent-400: #ffb15c;
+  --color-accent-500: #f59a3a;
+  --color-accent-600: #e07f1c;
+
+  --color-ink: #13201e;
+  --color-muted: #5b6b68;
+  --color-line: #e3ebe9;
+  --color-sand: #f6f4ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+}
+
+@utility btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+  background: var(--color-accent-500);
+  color: var(--color-brand-950);
+  &:hover {
+    background: var(--color-accent-600);
+  }
+}
+
+@utility footer-title {
+  margin-bottom: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #fff;
+}
+
+@utility hero-bg {
+  background:
+    radial-gradient(circle at 85% 20%, rgb(245 154 58 / 0.22), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgb(31 156 134 / 0.45), transparent 45%),
+    linear-gradient(135deg, var(--color-brand-950), var(--color-brand-800));
+}
+
+@utility prose-body {
+  & p {
+    margin-top: 1.1rem;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-muted);
+  }
+  & p:first-child {
+    margin-top: 0;
+  }
+}
+
+@utility input {
+  display: block;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  padding: 0.7rem 0.9rem;
+  font-weight: 400;
+  font-size: 0.95rem;
+  &:focus {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 1px;
+  }
+}
+
+/* ---------- Animazioni di navigazione ---------- */
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Transizione tra pagine: si anima SOLO il contenuto (<main>, view-transition-name: page).
+   La radice (header, menu, footer) non viene animata né ridisegnata. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(page) {
+  animation: none;
+}
+
+/* L'header resta fermo e sopra al contenuto che si anima */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 10;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(page),
+::view-transition-new(page) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Uscita: la pagina vecchia si dissolve */
+::view-transition-old(page) {
+  animation: 250ms ease-in both page-out;
+}
+
+/* Entrata: la nuova pagina compare in dissolvenza dopo l'uscita */
+::view-transition-new(page) {
+  animation: 350ms ease-out 250ms both page-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "bundler": "vite",
+  "projectName": "coopesseq",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "npm",
+  "includeExamples": false,
+  "tailwind": true,
+  "projectPreset": "default",
+  "routerOnly": false,
+  "addOnOptions": {
+    "drizzle": {
+      "database": "postgresql"
+    }
+  },
+  "git": true,
+  "install": true,
+  "intent": true,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": [
+    "vercel",
+    "db",
+    "drizzle",
+    "form",
+    "store",
+    "tanstack-query"
+  ]
+}
