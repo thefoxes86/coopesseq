@@ -48,14 +48,14 @@ function SectionPage() {
             <Link to="/contatti" className="btn-accent mt-8">Richiedi informazioni</Link>
           </div>
           <div className="relative">
-            <img src={gallery[0] ?? sectionCover(section.slug, 900, 650)} alt="" className="aspect-[4/3] w-full rounded-3xl object-cover shadow-xl" />
-            <div className="absolute -bottom-6 -left-4 hidden items-center gap-3 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-line sm:flex">
-              <span className="grid size-12 place-items-center rounded-xl bg-brand-600 text-white">
+            <img src={gallery[0] ?? sectionCover(section.slug, 900, 650)} alt="" className="arch aspect-[4/5] w-full object-cover" />
+            <div className="absolute -bottom-6 -left-4 hidden items-center gap-3 rounded-[1.5rem] bg-cream p-4 shadow-xl ring-1 ring-line sm:flex">
+              <span className="grid size-12 place-items-center rounded-full bg-brand-800 text-cream">
                 <Icon name={section.icon} />
               </span>
               <div>
-                <p className="text-2xl font-extrabold text-brand-700">{section.pages.length}</p>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted">ambiti di servizio</p>
+                <p className="font-display text-2xl text-brand-800">{section.pages.length}</p>
+                <p className="text-sm text-muted">ambiti di servizio</p>
               </div>
             </div>
           </div>
@@ -72,16 +72,16 @@ function SectionPage() {
                 key={p.slug}
                 to="/$section/$page"
                 params={{ section: section.slug, page: p.slug }}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:shadow-xl"
+                className="group flex flex-col overflow-hidden rounded-[1.5rem] border border-line bg-cream transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={pageImage(section.slug, p.slug, 700, 525)} alt={p.title} loading="lazy" className="size-full object-cover transition duration-500 group-hover:scale-105" />
                   <IconBadge name={section.icon} />
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <h2 className="text-lg font-extrabold text-ink">{p.title}</h2>
+                  <h2 className="text-2xl font-normal text-ink">{p.title}</h2>
                   <p className="mt-2 text-sm text-muted">{p.summary}</p>
-                  <span className="mt-auto flex items-center gap-2 pt-5 text-xs font-bold uppercase tracking-wide text-brand-600">
+                  <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-medium text-accent-500">
                     Scopri di più <Arrow className="size-4 transition group-hover:translate-x-1" />
                   </span>
                 </div>
@@ -95,16 +95,16 @@ function SectionPage() {
 
       {/* Altri servizi */}
       {section.slug !== 'chi-siamo' && (
-        <section className="bg-brand-50 py-20">
+        <section className="bg-sand py-20">
           <div className="container-x">
             <SectionTitle eyebrow="Servizi integrati" title="Scopri anche" />
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {others.map((s) => (
-                <Link key={s.slug} to="/$section" params={{ section: s.slug }} className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <Link key={s.slug} to="/$section" params={{ section: s.slug }} className="group relative aspect-[4/3] overflow-hidden rounded-[1.5rem]">
                   <img src={sectionCover(s.slug, 700, 525)} alt="" loading="lazy" className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 to-transparent" />
                   <IconBadge name={s.icon} />
-                  <p className="absolute bottom-0 left-0 p-5 text-lg font-extrabold text-white">{s.title}</p>
+                  <p className="absolute bottom-0 left-0 p-5 text-2xl font-normal text-white">{s.title}</p>
                 </Link>
               ))}
             </div>

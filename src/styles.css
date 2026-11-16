@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
 
-  /* Colore principale: verde petrolio */
-  --color-brand-50: #eef8f6;
-  --color-brand-100: #d3eee8;
-  --color-brand-200: #a8dccf;
-  --color-brand-500: #1f9c86;
-  --color-brand-600: #12806d;
-  --color-brand-700: #0f6658;
-  --color-brand-800: #0d5248;
-  --color-brand-900: #0a3f38;
-  --color-brand-950: #062a26;
+  /* Colore principale: verde bosco */
+  --color-brand-50: #eef3ee;
+  --color-brand-100: #dbe6dc;
+  --color-brand-200: #b5ccb8;
+  --color-brand-500: #4f7a5a;
+  --color-brand-600: #2f5a3d;
+  --color-brand-700: #264b33;
+  --color-brand-800: #1f3d2a;
+  --color-brand-900: #193222;
+  --color-brand-950: #11241a;
 
-  /* Accento: arancio caldo */
-  --color-accent-400: #ffb15c;
-  --color-accent-500: #f59a3a;
-  --color-accent-600: #e07f1c;
+  /* Accento: terracotta */
+  --color-accent-400: #e08a6a;
+  --color-accent-500: #c8553d;
+  --color-accent-600: #a8432e;
 
-  --color-ink: #13201e;
-  --color-muted: #5b6b68;
-  --color-line: #e3ebe9;
-  --color-sand: #f6f4ef;
+  --color-ink: #1e2a22;
+  --color-muted: #66706a;
+  --color-line: #e6dccb;
+  --color-sand: #f3ebdd;
+  --color-cream: #faf6ee;
+
+  /* Titoli serif più leggeri ed eleganti */
+  --font-weight-extrabold: 600;
 }
 
 * {
@@ -41,10 +46,18 @@ html {
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+blockquote {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 @utility container-x {
@@ -61,10 +74,11 @@ body {
 }
 
 @utility eyebrow {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 @utility btn {
@@ -72,11 +86,9 @@ body {
   align-items: center;
   gap: 0.5rem;
   border-radius: 999px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: all 0.2s;
 }
 
@@ -85,14 +97,12 @@ body {
   align-items: center;
   gap: 0.5rem;
   border-radius: 999px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: all 0.2s;
   background: var(--color-accent-500);
-  color: var(--color-brand-950);
+  color: #fff;
   &:hover {
     background: var(--color-accent-600);
   }
@@ -100,18 +110,55 @@ body {
 
 @utility footer-title {
   margin-bottom: 1.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-sand);
 }
 
 @utility hero-bg {
-  background:
-    radial-gradient(circle at 85% 20%, rgb(245 154 58 / 0.22), transparent 40%),
-    radial-gradient(circle at 10% 90%, rgb(31 156 134 / 0.45), transparent 45%),
-    linear-gradient(135deg, var(--color-brand-950), var(--color-brand-800));
+  background: var(--color-brand-800);
+}
+
+/* Immagine ad arco: richiama gli archi e le mura di Lucca */
+@utility arch {
+  border-radius: 999px 999px 1.25rem 1.25rem;
+}
+
+@utility arch-sm {
+  border-radius: 12rem 12rem 1rem 1rem;
+}
+
+@utility btn-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: 1.5px solid currentColor;
+  &:hover {
+    background: var(--color-brand-800);
+    border-color: var(--color-brand-800);
+    color: var(--color-cream);
+  }
+}
+
+/* Sottolineatura disegnata a mano sotto le parole chiave */
+@utility scribble {
+  position: relative;
+  white-space: nowrap;
+  &::after {
+    content: "";
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: -0.12em;
+    height: 0.32em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M2 14 C 40 4, 80 4, 120 10 S 180 16, 198 6' fill='none' stroke='%23c8553d' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  }
 }
 
 @utility prose-body {
@@ -131,12 +178,12 @@ body {
   width: 100%;
   border-radius: 0.75rem;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-cream);
   padding: 0.7rem 0.9rem;
   font-weight: 400;
   font-size: 0.95rem;
   &:focus {
-    outline: 2px solid var(--color-brand-500);
+    outline: 2px solid var(--color-accent-500);
     outline-offset: 1px;
   }
 }

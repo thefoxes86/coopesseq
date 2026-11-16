@@ -31,8 +31,8 @@ function Contatti() {
               { icon: 'phone' as const, label: 'Telefono', value: company.phone, href: company.phoneHref },
               { icon: 'mail' as const, label: 'Email', value: company.email, href: `mailto:${company.email}` },
             ].map((c) => (
-              <div key={c.label} className="flex gap-4 rounded-2xl bg-sand p-5">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white">
+              <div key={c.label} className="flex gap-4 rounded-[1.5rem] bg-sand p-5">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-brand-800 text-cream">
                   <Icon name={c.icon} className="size-5" />
                 </span>
                 <div>
@@ -45,7 +45,7 @@ function Contatti() {
                 </div>
               </div>
             ))}
-            <div className="rounded-2xl bg-sand p-5">
+            <div className="rounded-[1.5rem] bg-sand p-5">
               <p className="eyebrow mb-3 text-muted">Orari di apertura</p>
               {company.hours.map((h) => (
                 <p key={h.day} className="flex justify-between py-1 text-sm">
@@ -54,7 +54,7 @@ function Contatti() {
                 </p>
               ))}
             </div>
-            <div className="rounded-2xl border-2 border-dashed border-brand-200 p-5">
+            <div className="rounded-[1.5rem] border border-accent-500/40 p-5">
               <p className="font-bold">Lavora con noi</p>
               <p className="mt-1 text-sm text-muted">
                 Invia il tuo curriculum a <a className="font-semibold text-brand-600" href={`mailto:${company.email}`}>{company.email}</a> indicando l’area di interesse.
@@ -63,15 +63,15 @@ function Contatti() {
           </div>
 
           <form
-            className="rounded-2xl border border-line p-6 shadow-sm md:p-8"
+            className="rounded-[1.5rem] border border-line p-6 shadow-sm md:p-8"
             onSubmit={(e) => {
               e.preventDefault()
               setSent(true)
             }}
           >
-            <h2 className="text-2xl font-extrabold">Richiedi informazioni</h2>
+            <h2 className="text-3xl font-normal">Richiedi informazioni</h2>
             {sent ? (
-              <p className="mt-6 rounded-xl bg-brand-50 p-5 text-brand-800">
+              <p className="mt-6 rounded-xl bg-sand p-5 text-brand-800">
                 Grazie! Abbiamo ricevuto la tua richiesta e ti risponderemo al più presto.
               </p>
             ) : (
@@ -92,7 +92,7 @@ function Contatti() {
                   <textarea name="messaggio" rows={5} required className="input mt-1.5" />
                 </label>
                 <label className="sm:col-span-2 flex items-start gap-2 text-xs text-muted">
-                  <input type="checkbox" required className="mt-0.5 accent-brand-600" />
+                  <input type="checkbox" required className="mt-0.5 accent-accent-500" />
                   Ho letto l’informativa privacy e acconsento al trattamento dei dati.
                 </label>
                 <button type="submit" className="btn-accent sm:col-span-2 justify-center">Invia richiesta</button>

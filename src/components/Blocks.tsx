@@ -2,7 +2,37 @@ import { Link } from '@tanstack/react-router'
 import { company } from '#/data/site'
 import type { IconName } from '#/data/site'
 import { img } from '#/data/images'
-import { Icon } from './Icon'
+import { Arrow, Icon } from './Icon'
+
+/** Testo che gira in cerchio attorno a un'icona: timbro "artigianale". */
+export function Stamp({ icon, text = 'cooperativa sociale · dal 1995 · lucca · ', className = '' }: { icon: IconName; text?: string; className?: string }) {
+  return (
+    <div className={`grid size-32 place-items-center rounded-full bg-cream text-brand-800 shadow-xl shadow-brand-900/10 ${className}`}>
+      <svg viewBox="0 0 120 120" className="absolute size-32 animate-[spin_24s_linear_infinite]" aria-hidden="true">
+        <defs>
+          <path id="stamp-circle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
+        </defs>
+        <text className="fill-current font-display text-[11px] italic tracking-[0.08em]">
+          <textPath href="#stamp-circle">{text}{text}</textPath>
+        </text>
+      </svg>
+      <span className="grid size-12 place-items-center rounded-full bg-accent-500 text-white">
+        <Icon name={icon} className="size-6" />
+      </span>
+    </div>
+  )
+}
+
+/** Immagine ad arco con icona. */
+export function ArchImage({ src, icon, className = '', alt = '' }: { src: string; icon: IconName; className?: string; alt?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div className="arch absolute inset-0 translate-x-3 translate-y-3 border-[1.5px] border-accent-500" />
+      <img src={src} alt={alt} className="arch relative aspect-[4/5] w-full object-cover" />
+      <IconBadge name={icon} className="bottom-6 left-6" />
+    </div>
+  )
+}
 
 export function PageHero({
   eyebrow,
@@ -20,31 +50,32 @@ export function PageHero({
   crumbs: { label: string; to?: string; params?: Record<string, string> }[]
 }) {
   return (
-    <section className={`relative overflow-hidden text-white ${image ? 'bg-brand-950' : 'hero-bg'}`}>
-      {image && (
-        <>
-          <img src={image} alt="" className="absolute inset-0 size-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/85 to-brand-900/40" />
-        </>
-      )}
-      <Icon name={icon} className="pointer-events-none absolute -right-10 -bottom-16 size-80 text-white/[0.06]" />
-      <div className="container-x relative py-20 md:py-32">
-        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-white/70">
-          <Link to="/" className="hover:text-white">Home</Link>
-          {crumbs.map((c) => (
-            <span key={c.label} className="flex items-center gap-2">
-              <span>/</span>
-              {c.to ? (
-                <Link to={c.to} params={c.params as never} className="hover:text-white">{c.label}</Link>
-              ) : (
-                <span className="text-white">{c.label}</span>
-              )}
-            </span>
-          ))}
-        </nav>
-        <p className="eyebrow text-accent-400">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">{title}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-white/85">{intro}</p>
+    <section className="relative overflow-hidden bg-cream">
+      <div className={`container-x relative grid items-end gap-12 pt-14 pb-16 md:pt-20 ${image ? 'lg:grid-cols-[1.5fr_1fr]' : ''}`}>
+        <div className="pb-4">
+          <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-muted">
+            <Link to="/" className="hover:text-accent-500">Home</Link>
+            {crumbs.map((c) => (
+              <span key={c.label} className="flex items-center gap-2">
+                <span className="text-line">—</span>
+                {c.to ? (
+                  <Link to={c.to} params={c.params as never} className="hover:text-accent-500">{c.label}</Link>
+                ) : (
+                  <span className="text-ink">{c.label}</span>
+                )}
+              </span>
+            ))}
+          </nav>
+          <p className="eyebrow text-accent-500">{eyebrow}</p>
+          <h1 className="mt-2 max-w-4xl text-5xl font-normal leading-[1.02] text-ink md:text-7xl">{title}</h1>
+          <p className="mt-6 max-w-2xl text-lg text-muted">{intro}</p>
+        </div>
+        {image && (
+          <ArchImage src={image} icon={icon} className="mx-auto w-full max-w-sm lg:mr-4" />
+        )}
+      </div>
+      <div className="container-x">
+        <div className="h-px bg-line" />
       </div>
     </section>
   )
@@ -52,19 +83,23 @@ export function PageHero({
 
 export function CtaBand() {
   return (
-    <section className="bg-accent-500">
-      <div className="container-x flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
+    <section className="relative overflow-hidden bg-brand-800 text-cream">
+      <Icon name="leaf" className="pointer-events-none absolute -right-10 -top-10 size-72 rotate-12 text-cream/[0.05]" />
+      <div className="container-x relative grid gap-8 py-20 md:grid-cols-[1.5fr_1fr] md:items-center">
         <div>
-          <h2 className="text-2xl font-extrabold text-brand-950 md:text-3xl">Hai bisogno di un servizio su misura?</h2>
-          <p className="mt-2 text-brand-950/80">Contattaci per un sopralluogo gratuito e un preventivo senza impegno.</p>
+          <p className="eyebrow text-accent-400">Parliamone</p>
+          <h2 className="mt-2 text-4xl font-normal leading-tight md:text-5xl">
+            Hai bisogno di un servizio <em className="text-accent-400">su misura</em>?
+          </h2>
+          <p className="mt-4 max-w-xl text-cream/70">Sopralluogo gratuito e preventivo senza impegno, con un unico referente.</p>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <a href={company.phoneHref} className="btn bg-brand-950 text-white hover:bg-brand-800">
-            <Icon name="phone" className="size-4" /> Chiama ora
-          </a>
-          <Link to="/contatti" className="btn border-2 border-brand-950 text-brand-950 hover:bg-brand-950 hover:text-white">
-            Scrivici
+        <div className="flex flex-col gap-3 md:items-end">
+          <Link to="/contatti" className="btn-accent">
+            Scrivici <Arrow />
           </Link>
+          <a href={company.phoneHref} className="inline-flex items-center gap-2 text-cream/80 hover:text-cream">
+            <Icon name="phone" className="size-4" /> oppure chiama il {company.phone}
+          </a>
         </div>
       </div>
     </section>
@@ -74,48 +109,45 @@ export function CtaBand() {
 export function SectionTitle({ eyebrow, title, intro, center = false }: { eyebrow: string; title: string; intro?: string; center?: boolean }) {
   return (
     <div className={center ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}>
-      <p className="eyebrow text-brand-600">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">{title}</h2>
-      {intro && <p className="mt-4 text-lg text-muted">{intro}</p>}
+      <p className="eyebrow text-accent-500">{eyebrow}</p>
+      <h2 className="mt-2 text-4xl font-normal leading-[1.08] text-ink md:text-5xl">{title}</h2>
+      {intro && <p className="mt-5 text-lg text-muted">{intro}</p>}
     </div>
   )
 }
 
 /** Badge con icona da sovrapporre alle immagini (il contenitore deve essere `relative`). */
 export function IconBadge({ name, className = 'left-4 top-4', size = 'md' }: { name: IconName; className?: string; size?: 'sm' | 'md' | 'lg' }) {
-  const s = { sm: 'size-10 rounded-lg', md: 'size-12 rounded-xl', lg: 'size-14 rounded-2xl' }[size]
+  const s = { sm: 'size-10', md: 'size-12', lg: 'size-14' }[size]
   const i = { sm: 'size-5', md: 'size-6', lg: 'size-7' }[size]
   return (
-    <span className={`absolute z-10 grid place-items-center bg-brand-600 text-white shadow-lg ring-4 ring-white/70 ${s} ${className}`}>
+    <span className={`absolute z-10 grid place-items-center rounded-full bg-cream text-accent-500 shadow-lg shadow-brand-900/15 ${s} ${className}`}>
       <Icon name={name} className={i} />
     </span>
   )
 }
 
 const steps = [
-  { n: '01', title: 'Sopralluogo', text: 'Visitiamo la struttura e ascoltiamo le tue esigenze.' },
-  { n: '02', title: 'Progetto', text: 'Prepariamo un piano di servizio e un preventivo chiaro.' },
-  { n: '03', title: 'Avvio', text: 'Formiamo la squadra dedicata e partiamo nei tempi concordati.' },
-  { n: '04', title: 'Controllo', text: 'Verifiche periodiche e un referente sempre raggiungibile.' },
+  { title: 'Sopralluogo', text: 'Visitiamo la struttura e ascoltiamo le tue esigenze.' },
+  { title: 'Progetto', text: 'Prepariamo un piano di servizio e un preventivo chiaro.' },
+  { title: 'Avvio', text: 'Formiamo la squadra dedicata e partiamo nei tempi concordati.' },
+  { title: 'Controllo', text: 'Verifiche periodiche e un referente sempre raggiungibile.' },
 ]
 
-/** Blocco "come lavoriamo" con immagine laterale. */
+/** Blocco "come lavoriamo" con immagine ad arco. */
 export function HowWeWork({ image = img('teamOffice', 1000, 1100), icon = 'people' }: { image?: string; icon?: IconName }) {
   return (
     <section className="bg-sand py-20 md:py-28">
-      <div className="container-x grid gap-14 lg:grid-cols-2 lg:items-center">
-        <div className="relative">
-          <img src={image} alt="" loading="lazy" className="aspect-[4/3] w-full rounded-3xl object-cover shadow-xl lg:aspect-[5/6]" />
-          <IconBadge name={icon} size="lg" className="left-6 top-6" />
-        </div>
+      <div className="container-x grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:items-center">
+        <ArchImage src={image} icon={icon} className="mx-auto w-full max-w-md" />
         <div>
           <SectionTitle eyebrow="Il metodo" title="Come lavoriamo" intro="Un percorso semplice e trasparente, dal primo contatto alla gestione quotidiana." />
-          <ol className="mt-10 space-y-6">
-            {steps.map((s) => (
-              <li key={s.n} className="flex gap-5">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-600 font-extrabold text-white">{s.n}</span>
+          <ol className="mt-10 divide-y divide-line border-y border-line">
+            {steps.map((s, i) => (
+              <li key={s.title} className="grid grid-cols-[4rem_1fr] items-baseline gap-4 py-5">
+                <span className="font-display text-4xl italic text-accent-500">{String(i + 1).padStart(2, '0')}</span>
                 <div>
-                  <h3 className="text-lg font-bold">{s.title}</h3>
+                  <h3 className="text-2xl">{s.title}</h3>
                   <p className="mt-1 text-muted">{s.text}</p>
                 </div>
               </li>

@@ -48,23 +48,23 @@ function SubPage() {
             </div>
 
             <figure className="relative mt-10">
-              <img src={pageImage(section.slug, page.slug, 1400, 800)} alt={page.title} className="aspect-[16/9] w-full rounded-3xl object-cover shadow-lg" />
+              <img src={pageImage(section.slug, page.slug, 1400, 800)} alt={page.title} className="aspect-[16/9] w-full rounded-[2rem] object-cover shadow-lg" />
               <IconBadge name={section.icon} size="lg" className="left-6 top-6" />
               <figcaption className="mt-3 text-sm text-muted">{section.title} · {page.title} — immagine dimostrativa</figcaption>
             </figure>
 
             <div className="mt-12 grid gap-8 md:grid-cols-2 md:items-center">
               <div className="relative">
-                <img src={gallery[0] ?? sectionCover(section.slug, 800, 600)} alt="" loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover" />
+                <img src={gallery[0] ?? sectionCover(section.slug, 800, 600)} alt="" loading="lazy" className="aspect-[4/3] w-full rounded-[1.5rem] object-cover" />
                 <IconBadge name="handshake" />
               </div>
               <div>
-                <h2 className="text-2xl font-extrabold">Un servizio pensato su di te</h2>
+                <h2 className="text-3xl font-normal">Un servizio pensato su di te</h2>
                 <p className="mt-3 leading-relaxed text-muted">
                   Ogni intervento parte da un’analisi delle esigenze e viene seguito da un referente dedicato. Personale
                   formato, attrezzature professionali e controlli periodici garantiscono continuità e qualità nel tempo.
                 </p>
-                <Link to="/contatti" className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand-600">
+                <Link to="/contatti" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent-500">
                   Richiedi un sopralluogo <Arrow />
                 </Link>
               </div>
@@ -73,8 +73,8 @@ function SubPage() {
             {page.stats && (
               <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
                 {page.stats.map((s) => (
-                  <div key={s.label} className="rounded-2xl bg-brand-50 p-6">
-                    <p className="text-3xl font-extrabold text-brand-700">{s.value}</p>
+                  <div key={s.label} className="rounded-[1.5rem] bg-sand p-6">
+                    <p className="font-display text-3xl text-brand-800">{s.value}</p>
                     <p className="mt-1 text-sm text-muted">{s.label}</p>
                   </div>
                 ))}
@@ -86,7 +86,7 @@ function SubPage() {
                 {page.timeline.map((t) => (
                   <li key={t.year} className="relative pb-8 pl-8 last:pb-0">
                     <span className="absolute -left-[9px] top-1 size-4 rounded-full border-4 border-white bg-accent-500 ring-2 ring-brand-100" />
-                    <p className="text-xl font-extrabold text-brand-700">{t.year}</p>
+                    <p className="font-display text-xl text-brand-800">{t.year}</p>
                     <p className="mt-1 text-muted">{t.text}</p>
                   </li>
                 ))}
@@ -97,7 +97,7 @@ function SubPage() {
               <ul className="mt-10 grid gap-3 sm:grid-cols-2">
                 {page.points.map((pt) => (
                   <li key={pt} className="flex items-start gap-3 rounded-xl border border-line p-4">
-                    <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-accent-500 text-brand-950">
+                    <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-accent-500 text-white">
                       <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5 9-10" /></svg>
                     </span>
                     <span className="font-medium">{pt}</span>
@@ -108,7 +108,7 @@ function SubPage() {
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-36 lg:self-start">
-            <nav className="rounded-2xl border border-line p-5" aria-label={section.title}>
+            <nav className="rounded-[1.5rem] border border-line p-5" aria-label={section.title}>
               <p className="eyebrow mb-3 text-muted">{section.title}</p>
               <ul className="space-y-1">
                 {section.pages.map((p) => (
@@ -116,8 +116,8 @@ function SubPage() {
                     <Link
                       to="/$section/$page"
                       params={{ section: section.slug, page: p.slug }}
-                      className="block rounded-lg px-3 py-2 text-sm hover:bg-brand-50"
-                      activeProps={{ className: 'bg-brand-600 text-white font-semibold hover:bg-brand-600' }}
+                      className="block rounded-lg px-3 py-2 text-sm hover:bg-sand"
+                      activeProps={{ className: '!bg-brand-800 text-cream font-medium' }}
                     >
                       {p.title}
                     </Link>
@@ -125,7 +125,7 @@ function SubPage() {
                 ))}
               </ul>
             </nav>
-            <div className="rounded-2xl bg-brand-900 p-6 text-white">
+            <div className="rounded-[1.5rem] bg-brand-800 p-6 text-cream">
               <Icon name="phone" className="size-7 text-accent-400" />
               <p className="mt-3 font-bold">Parla con noi</p>
               <p className="mt-1 text-sm text-white/70">Sopralluogo e preventivo gratuiti.</p>
@@ -138,7 +138,7 @@ function SubPage() {
       <HowWeWork image={gallery[1] ?? img('teamOffice', 1000, 1100)} icon={section.icon} />
 
       {siblings.length > 0 && (
-        <section className="bg-brand-50 py-20">
+        <section className="bg-sand py-20">
           <div className="container-x">
             <SectionTitle eyebrow={section.title} title="Altri ambiti" />
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -147,14 +147,14 @@ function SubPage() {
                   key={p.slug}
                   to="/$section/$page"
                   params={{ section: section.slug, page: p.slug }}
-                  className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-line transition hover:shadow-xl"
+                  className="group overflow-hidden rounded-[1.5rem] bg-cream shadow-sm ring-1 ring-line transition hover:shadow-xl"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img src={pageImage(section.slug, p.slug, 700, 440)} alt={p.title} loading="lazy" className="size-full object-cover transition duration-500 group-hover:scale-105" />
                     <IconBadge name={section.icon} />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-lg font-extrabold group-hover:text-brand-600">{p.title}</h3>
+                    <h3 className="text-2xl font-normal group-hover:text-brand-600">{p.title}</h3>
                     <p className="mt-1 text-sm text-muted">{p.summary}</p>
                   </div>
                 </Link>
