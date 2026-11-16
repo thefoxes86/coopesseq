@@ -1,28 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 
-  /* Colore principale: verde petrolio */
-  --color-brand-50: #eef8f6;
-  --color-brand-100: #d3eee8;
-  --color-brand-200: #a8dccf;
-  --color-brand-500: #1f9c86;
-  --color-brand-600: #12806d;
-  --color-brand-700: #0f6658;
-  --color-brand-800: #0d5248;
-  --color-brand-900: #0a3f38;
-  --color-brand-950: #062a26;
+  /* Colore principale: blu notte */
+  --color-brand-50: #eef2f7;
+  --color-brand-100: #dbe3ee;
+  --color-brand-200: #b7c5d8;
+  --color-brand-500: #3d5576;
+  --color-brand-600: #2b3f5c;
+  --color-brand-700: #22334b;
+  --color-brand-800: #1d2b3f;
+  --color-brand-900: #172232;
+  --color-brand-950: #111a27;
 
-  /* Accento: arancio caldo */
-  --color-accent-400: #ffb15c;
-  --color-accent-500: #f59a3a;
-  --color-accent-600: #e07f1c;
+  /* Accento: giallo */
+  --color-accent-400: #ffd84d;
+  --color-accent-500: #f6c21c;
+  --color-accent-600: #8f6a00;
 
-  --color-ink: #13201e;
-  --color-muted: #5b6b68;
-  --color-line: #e3ebe9;
-  --color-sand: #f6f4ef;
+  --color-ink: #111a27;
+  --color-muted: #5d6878;
+  --color-line: #e4e8ee;
+  --color-sand: #f3f5f8;
+
+  --radius-card: 1.75rem;
 }
 
 * {
@@ -71,12 +73,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 999px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  border-radius: 0.625rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   transition: all 0.2s;
 }
 
@@ -84,34 +84,57 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 999px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  border-radius: 0.625rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   transition: all 0.2s;
   background: var(--color-accent-500);
   color: var(--color-brand-950);
+  box-shadow: 0 8px 24px -10px rgb(246 194 28 / 0.6);
   &:hover {
-    background: var(--color-accent-600);
+    background: var(--color-accent-400);
   }
 }
 
 @utility footer-title {
   margin-bottom: 1.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent-400);
 }
 
 @utility hero-bg {
   background:
-    radial-gradient(circle at 85% 20%, rgb(245 154 58 / 0.22), transparent 40%),
-    radial-gradient(circle at 10% 90%, rgb(31 156 134 / 0.45), transparent 45%),
-    linear-gradient(135deg, var(--color-brand-950), var(--color-brand-800));
+    radial-gradient(circle at 80% 30%, rgb(61 85 118 / 0.45), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgb(29 43 63 / 0.9), transparent 50%),
+    linear-gradient(160deg, var(--color-brand-900), var(--color-brand-950));
+}
+
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  &:hover {
+    border-color: var(--color-accent-500);
+    color: var(--color-accent-400);
+  }
+}
+
+/* Card scura come nel riferimento */
+@utility card-dark {
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--color-brand-700), var(--color-brand-900));
+  color: #fff;
+  box-shadow: 0 30px 60px -25px rgb(17 26 39 / 0.65);
+  border: 1px solid rgb(255 255 255 / 0.08);
 }
 
 @utility prose-body {
@@ -129,14 +152,14 @@ body {
 @utility input {
   display: block;
   width: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0.625rem;
   border: 1px solid var(--color-line);
   background: #fff;
   padding: 0.7rem 0.9rem;
   font-weight: 400;
   font-size: 0.95rem;
   &:focus {
-    outline: 2px solid var(--color-brand-500);
+    outline: 2px solid var(--color-accent-500);
     outline-offset: 1px;
   }
 }

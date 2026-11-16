@@ -5,7 +5,7 @@ import { Icon } from './Icon'
 
 export function Footer() {
   return (
-    <footer className="bg-brand-950 text-white/70">
+    <footer className="border-t border-white/10 bg-brand-950 text-white/60">
       <div className="container-x grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Logo light />
@@ -34,8 +34,8 @@ export function Footer() {
           <h3 className="footer-title">Sede e recapiti</h3>
           <ul className="space-y-3 text-sm">
             <li className="flex gap-2.5"><Icon name="pin" className="size-4 mt-0.5 shrink-0 text-accent-400" />{company.address}</li>
-            <li><a href={company.phoneHref} className="flex gap-2.5 hover:text-white"><Icon name="phone" className="size-4 mt-0.5 shrink-0 text-accent-400" />{company.phone}</a></li>
-            <li><a href={`mailto:${company.email}`} className="flex gap-2.5 hover:text-white"><Icon name="mail" className="size-4 mt-0.5 shrink-0 text-accent-400" />{company.email}</a></li>
+            <li><a href={company.phoneHref} className="flex gap-2.5 hover:text-accent-400"><Icon name="phone" className="size-4 mt-0.5 shrink-0 text-accent-400" />{company.phone}</a></li>
+            <li><a href={`mailto:${company.email}`} className="flex gap-2.5 hover:text-accent-400"><Icon name="mail" className="size-4 mt-0.5 shrink-0 text-accent-400" />{company.email}</a></li>
           </ul>
         </div>
 
@@ -50,9 +50,9 @@ export function Footer() {
             ))}
           </ul>
           <div className="mt-5 flex gap-4 text-sm">
-            <Link to="/$section" params={{ section: 'chi-siamo' }} className="hover:text-white">Chi siamo</Link>
-            <Link to="/partner" className="hover:text-white">Partner</Link>
-            <Link to="/contatti" className="hover:text-white">Contatti</Link>
+            <Link to="/$section" params={{ section: 'chi-siamo' }} className="hover:text-accent-400">Chi siamo</Link>
+            <Link to="/partner" className="hover:text-accent-400">Partner</Link>
+            <Link to="/contatti" className="hover:text-accent-400">Contatti</Link>
           </div>
         </div>
       </div>

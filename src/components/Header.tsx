@@ -6,7 +6,7 @@ import { Chevron, Icon } from './Icon'
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link to="/" className="flex items-center gap-2.5 shrink-0" aria-label={`${company.name} – home`}>
-      <span className="grid size-10 place-items-center rounded-xl bg-brand-600 text-white font-bold text-lg shadow-sm">
+      <span className="grid size-10 place-items-center rounded-xl bg-accent-500 text-brand-950 font-bold text-lg shadow-sm">
         E
       </span>
       <span className="leading-tight">
@@ -28,9 +28,9 @@ export function Header() {
   const [closed, setClosed] = useState<string | null>(null)
 
   return (
-    <header className="sticky top-0 z-50 [view-transition-name:site-header]">
+    <header className="sticky top-0 z-50 text-white [view-transition-name:site-header]">
       {/* Top bar */}
-      <div className="bg-brand-900 text-white/80 text-xs">
+      <div className="bg-brand-950 text-white/60 text-xs border-b border-white/5">
         <div className="container-x flex h-9 items-center justify-between gap-4">
           <div className="flex items-center gap-5">
             <a href={company.phoneHref} className="flex items-center gap-1.5 hover:text-white">
@@ -40,7 +40,7 @@ export function Header() {
               <Icon name="mail" className="size-3.5" /> {company.email}
             </a>
           </div>
-          <div className="flex items-center gap-5 uppercase tracking-wider">
+          <div className="flex items-center gap-5">
             <Link to="/contatti" className="hover:text-white">Lavora con noi</Link>
             <Link to="/partner" className="hidden sm:block hover:text-white">Partner</Link>
           </div>
@@ -48,9 +48,9 @@ export function Header() {
       </div>
 
       {/* Main bar */}
-      <div className="bg-white/95 backdrop-blur border-b border-line">
+      <div className="bg-brand-950/95 backdrop-blur border-b border-white/10">
         <div className="container-x flex h-20 items-center justify-between gap-6">
-          <Logo />
+          <Logo light />
 
           <nav className="hidden 2xl:flex items-center whitespace-nowrap" aria-label="Principale">
             {sections.map((s) => (
@@ -58,15 +58,15 @@ export function Header() {
                 <Link
                   to="/$section"
                   params={{ section: s.slug }}
-                  className="flex items-center gap-1 px-2.5 py-7 text-[13px] font-semibold uppercase tracking-wide text-ink hover:text-brand-600"
-                  activeProps={{ className: 'text-brand-600' }}
+                  className="flex items-center gap-1 px-3 py-7 text-[15px] font-medium text-white/85 hover:text-accent-400"
+                  activeProps={{ className: '!text-accent-400' }}
                   onClick={() => setClosed(s.slug)}
                 >
                   {s.title}
                   <Chevron className="size-3.5 opacity-60 transition group-hover:rotate-180" />
                 </Link>
                 <div className={`invisible absolute left-0 top-full w-64 translate-y-2 opacity-0 transition ${closed === s.slug ? '' : 'group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100'}`}>
-                  <ul className="rounded-b-xl border-t-2 border-accent-500 bg-white py-2 shadow-xl ring-1 ring-black/5">
+                  <ul className="rounded-2xl bg-brand-800 p-2 shadow-2xl ring-1 ring-white/10">
                     {s.pages.map((p) => (
                       <li key={p.slug}>
                         <Link
@@ -76,7 +76,7 @@ export function Header() {
                             setClosed(s.slug)
                             e.currentTarget.blur()
                           }}
-                          className="block px-5 py-2.5 text-sm text-ink/80 hover:bg-brand-50 hover:text-brand-700"
+                          className="block rounded-xl px-4 py-2.5 text-sm text-white/80 hover:bg-white/5 hover:text-accent-400"
                         >
                           {p.title}
                         </Link>
@@ -88,8 +88,8 @@ export function Header() {
             ))}
             <Link
               to="/contatti"
-              className="px-2.5 py-7 text-[13px] font-semibold uppercase tracking-wide text-ink hover:text-brand-600"
-              activeProps={{ className: 'text-brand-600' }}
+              className="px-3 py-7 text-[15px] font-medium text-white/85 hover:text-accent-400"
+              activeProps={{ className: '!text-accent-400' }}
             >
               Contatti
             </Link>
@@ -101,7 +101,7 @@ export function Header() {
             </a>
             <button
               type="button"
-              className="2xl:hidden grid size-11 place-items-center rounded-lg border border-line"
+              className="2xl:hidden grid size-11 place-items-center rounded-xl border border-white/20"
               aria-label={open ? 'Chiudi menu' : 'Apri menu'}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
@@ -115,16 +115,16 @@ export function Header() {
 
         {/* Mobile menu */}
         {open && (
-          <nav className="2xl:hidden max-h-[calc(100dvh-7.25rem)] overflow-y-auto border-t border-line bg-white" aria-label="Mobile">
+          <nav className="2xl:hidden max-h-[calc(100dvh-7.25rem)] overflow-y-auto border-t border-white/10 bg-brand-950" aria-label="Mobile">
             <ul className="container-x py-3">
               {sections.map((s) => (
-                <li key={s.slug} className="border-b border-line last:border-0">
+                <li key={s.slug} className="border-b border-white/10 last:border-0">
                   <div className="flex items-center justify-between">
                     <Link
                       to="/$section"
                       params={{ section: s.slug }}
                       onClick={() => setOpen(false)}
-                      className="flex-1 py-3.5 font-semibold uppercase text-sm tracking-wide"
+                      className="flex-1 py-3.5 font-medium"
                     >
                       {s.title}
                     </Link>
@@ -146,7 +146,7 @@ export function Header() {
                             to="/$section/$page"
                             params={{ section: s.slug, page: p.slug }}
                             onClick={() => setOpen(false)}
-                            className="block py-2 text-sm text-muted hover:text-brand-600"
+                            className="block py-2 text-sm text-white/60 hover:text-accent-400"
                           >
                             {p.title}
                           </Link>
@@ -156,13 +156,13 @@ export function Header() {
                   )}
                 </li>
               ))}
-              <li className="border-b border-line">
-                <Link to="/contatti" onClick={() => setOpen(false)} className="block py-3.5 font-semibold uppercase text-sm tracking-wide">
+              <li className="border-b border-white/10">
+                <Link to="/contatti" onClick={() => setOpen(false)} className="block py-3.5 font-medium">
                   Contatti
                 </Link>
               </li>
               <li>
-                <Link to="/partner" onClick={() => setOpen(false)} className="block py-3.5 font-semibold uppercase text-sm tracking-wide">
+                <Link to="/partner" onClick={() => setOpen(false)} className="block py-3.5 font-medium">
                   Partner
                 </Link>
               </li>

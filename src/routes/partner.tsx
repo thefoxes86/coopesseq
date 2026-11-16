@@ -31,10 +31,12 @@ function Partner() {
         <div className="container-x">
           <div className="grid gap-6 md:grid-cols-3">
             {kinds.map((k) => (
-              <div key={k.title} className="rounded-2xl bg-brand-50 p-7">
-                <Icon name="handshake" className="size-8 text-brand-600" />
-                <h2 className="mt-4 text-lg font-extrabold">{k.title}</h2>
-                <p className="mt-2 text-sm text-muted">{k.text}</p>
+              <div key={k.title} className="card-dark p-7">
+                <span className="grid size-12 place-items-center rounded-lg bg-accent-500 text-brand-950">
+                  <Icon name="handshake" className="size-6" />
+                </span>
+                <h2 className="mt-4 text-lg font-semibold">{k.title}</h2>
+                <p className="mt-2 text-sm text-white/65">{k.text}</p>
               </div>
             ))}
           </div>
@@ -43,7 +45,7 @@ function Partner() {
             <SectionTitle eyebrow="Chi ci ha scelto" title="I nostri partner" />
             <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {partners.map((p) => (
-                <li key={p} className="grid h-28 place-items-center rounded-2xl border border-line px-4 text-center font-semibold text-muted">
+                <li key={p} className="grid h-28 place-items-center rounded-[var(--radius-card)] bg-sand px-4 text-center font-semibold text-muted">
                   {p}
                 </li>
               ))}

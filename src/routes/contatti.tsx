@@ -31,22 +31,22 @@ function Contatti() {
               { icon: 'phone' as const, label: 'Telefono', value: company.phone, href: company.phoneHref },
               { icon: 'mail' as const, label: 'Email', value: company.email, href: `mailto:${company.email}` },
             ].map((c) => (
-              <div key={c.label} className="flex gap-4 rounded-2xl bg-sand p-5">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white">
+              <div key={c.label} className="flex gap-4 rounded-[var(--radius-card)] bg-sand p-5">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent-500 text-brand-950">
                   <Icon name={c.icon} className="size-5" />
                 </span>
                 <div>
-                  <p className="eyebrow text-muted">{c.label}</p>
+                  <p className="text-sm font-semibold text-muted">{c.label}</p>
                   {c.href ? (
-                    <a href={c.href} className="mt-1 block font-semibold hover:text-brand-600">{c.value}</a>
+                    <a href={c.href} className="mt-1 block font-semibold hover:text-accent-600">{c.value}</a>
                   ) : (
                     <p className="mt-1 font-semibold">{c.value}</p>
                   )}
                 </div>
               </div>
             ))}
-            <div className="rounded-2xl bg-sand p-5">
-              <p className="eyebrow mb-3 text-muted">Orari di apertura</p>
+            <div className="rounded-[var(--radius-card)] bg-sand p-5">
+              <p className="mb-3 text-sm font-semibold text-muted">Orari di apertura</p>
               {company.hours.map((h) => (
                 <p key={h.day} className="flex justify-between py-1 text-sm">
                   <span className="font-semibold">{h.day}</span>
@@ -54,24 +54,24 @@ function Contatti() {
                 </p>
               ))}
             </div>
-            <div className="rounded-2xl border-2 border-dashed border-brand-200 p-5">
+            <div className="card-dark p-5">
               <p className="font-bold">Lavora con noi</p>
-              <p className="mt-1 text-sm text-muted">
-                Invia il tuo curriculum a <a className="font-semibold text-brand-600" href={`mailto:${company.email}`}>{company.email}</a> indicando l’area di interesse.
+              <p className="mt-1 text-sm text-white/70">
+                Invia il tuo curriculum a <a className="font-semibold text-accent-400" href={`mailto:${company.email}`}>{company.email}</a> indicando l’area di interesse.
               </p>
             </div>
           </div>
 
           <form
-            className="rounded-2xl border border-line p-6 shadow-sm md:p-8"
+            className="rounded-[var(--radius-card)] border border-line p-6 shadow-sm md:p-8"
             onSubmit={(e) => {
               e.preventDefault()
               setSent(true)
             }}
           >
-            <h2 className="text-2xl font-extrabold">Richiedi informazioni</h2>
+            <h2 className="text-2xl font-semibold">Richiedi informazioni</h2>
             {sent ? (
-              <p className="mt-6 rounded-xl bg-brand-50 p-5 text-brand-800">
+              <p className="mt-6 rounded-xl bg-sand p-5 text-ink">
                 Grazie! Abbiamo ricevuto la tua richiesta e ti risponderemo al più presto.
               </p>
             ) : (
@@ -92,7 +92,7 @@ function Contatti() {
                   <textarea name="messaggio" rows={5} required className="input mt-1.5" />
                 </label>
                 <label className="sm:col-span-2 flex items-start gap-2 text-xs text-muted">
-                  <input type="checkbox" required className="mt-0.5 accent-brand-600" />
+                  <input type="checkbox" required className="mt-0.5 accent-accent-500" />
                   Ho letto l’informativa privacy e acconsento al trattamento dei dati.
                 </label>
                 <button type="submit" className="btn-accent sm:col-span-2 justify-center">Invia richiesta</button>

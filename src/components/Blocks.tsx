@@ -2,7 +2,23 @@ import { Link } from '@tanstack/react-router'
 import { company } from '#/data/site'
 import type { IconName } from '#/data/site'
 import { img } from '#/data/images'
-import { Icon } from './Icon'
+import { Arrow, Icon } from './Icon'
+
+/** Immagine circolare con anello giallo, come nel riferimento grafico. */
+export function CircleImage({ src, icon, className = '' }: { src: string; icon: IconName; className?: string }) {
+  return (
+    <div className={`relative mx-auto aspect-square w-full ${className}`}>
+      {/* anello sottile */}
+      <div className="absolute -inset-3 rounded-full border border-white/10" />
+      {/* arco giallo */}
+      <div className="absolute -inset-5 rotate-[-20deg] rounded-full border-2 border-accent-500 border-b-transparent border-l-transparent" />
+      <div className="relative size-full overflow-hidden rounded-full shadow-2xl ring-8 ring-brand-900/60">
+        <img src={src} alt="" className="size-full object-cover" />
+      </div>
+      <IconBadge name={icon} size="lg" className="bottom-[8%] left-[4%]" />
+    </div>
+  )
+}
 
 export function PageHero({
   eyebrow,
@@ -20,50 +36,62 @@ export function PageHero({
   crumbs: { label: string; to?: string; params?: Record<string, string> }[]
 }) {
   return (
-    <section className={`relative overflow-hidden text-white ${image ? 'bg-brand-950' : 'hero-bg'}`}>
-      {image && (
-        <>
-          <img src={image} alt="" className="absolute inset-0 size-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/85 to-brand-900/40" />
-        </>
-      )}
-      <Icon name={icon} className="pointer-events-none absolute -right-10 -bottom-16 size-80 text-white/[0.06]" />
-      <div className="container-x relative py-20 md:py-32">
-        <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-white/70">
-          <Link to="/" className="hover:text-white">Home</Link>
-          {crumbs.map((c) => (
-            <span key={c.label} className="flex items-center gap-2">
-              <span>/</span>
-              {c.to ? (
-                <Link to={c.to} params={c.params as never} className="hover:text-white">{c.label}</Link>
-              ) : (
-                <span className="text-white">{c.label}</span>
-              )}
-            </span>
-          ))}
-        </nav>
-        <p className="eyebrow text-accent-400">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">{title}</h1>
-        <p className="mt-5 max-w-2xl text-lg text-white/85">{intro}</p>
+    <section className="hero-bg relative overflow-hidden text-white">
+      <Icon name={icon} className="pointer-events-none absolute -left-16 -bottom-20 size-80 text-white/[0.03]" />
+      <div className={`container-x relative grid items-center gap-14 py-16 md:py-24 ${image ? 'lg:grid-cols-[1.3fr_1fr]' : ''}`}>
+        <div>
+          <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/60">
+            <Link to="/" className="hover:text-accent-400">Home</Link>
+            {crumbs.map((c) => (
+              <span key={c.label} className="flex items-center gap-2">
+                <span className="text-white/30">/</span>
+                {c.to ? (
+                  <Link to={c.to} params={c.params as never} className="hover:text-accent-400">{c.label}</Link>
+                ) : (
+                  <span className="text-white">{c.label}</span>
+                )}
+              </span>
+            ))}
+          </nav>
+          <p className="inline-flex items-center gap-2 text-sm font-medium text-accent-400">
+            <span className="size-2 rounded-full bg-accent-500" /> {eyebrow}
+          </p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">{title}</h1>
+          <p className="mt-6 max-w-2xl text-lg text-white/70">{intro}</p>
+        </div>
+        {image && <CircleImage src={image} icon={icon} className="max-w-sm lg:max-w-md" />}
       </div>
     </section>
   )
 }
 
+const ctaPoints = ['Sopralluogo gratuito', 'Preventivo senza impegno', 'Un unico referente']
+
 export function CtaBand() {
   return (
-    <section className="bg-accent-500">
-      <div className="container-x flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
+    <section className="hero-bg text-white">
+      <div className="container-x grid gap-10 py-16 md:py-20 lg:grid-cols-[1.4fr_1fr] lg:items-center">
         <div>
-          <h2 className="text-2xl font-extrabold text-brand-950 md:text-3xl">Hai bisogno di un servizio su misura?</h2>
-          <p className="mt-2 text-brand-950/80">Contattaci per un sopralluogo gratuito e un preventivo senza impegno.</p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <a href={company.phoneHref} className="btn bg-brand-950 text-white hover:bg-brand-800">
-            <Icon name="phone" className="size-4" /> Chiama ora
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Hai bisogno di un servizio su misura?</h2>
+          <p className="mt-4 max-w-xl text-white/70">
+            Raccontaci di cosa hai bisogno: ti proponiamo una soluzione integrata, con tempi e costi chiari.
+          </p>
+          <a href={company.phoneHref} className="mt-6 inline-flex items-center gap-3 text-accent-400 hover:text-accent-500">
+            <span className="grid size-10 place-items-center rounded-lg bg-accent-500 text-brand-950">
+              <Icon name="phone" className="size-5" />
+            </span>
+            <span className="font-semibold">{company.phone}</span>
           </a>
-          <Link to="/contatti" className="btn border-2 border-brand-950 text-brand-950 hover:bg-brand-950 hover:text-white">
-            Scrivici
+        </div>
+        <div className="space-y-3">
+          {ctaPoints.map((p) => (
+            <p key={p} className="flex items-center gap-3 rounded-xl border border-white/15 px-4 py-3 text-sm">
+              <svg viewBox="0 0 24 24" className="size-4 text-accent-500" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 5 5 9-10" /></svg>
+              {p}
+            </p>
+          ))}
+          <Link to="/contatti" className="btn-accent w-full justify-center">
+            Richiedi una consulenza <Arrow />
           </Link>
         </div>
       </div>
@@ -74,8 +102,10 @@ export function CtaBand() {
 export function SectionTitle({ eyebrow, title, intro, center = false }: { eyebrow: string; title: string; intro?: string; center?: boolean }) {
   return (
     <div className={center ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}>
-      <p className="eyebrow text-brand-600">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">{title}</h2>
+      <p className={`inline-flex items-center gap-2 text-sm font-semibold text-accent-600 ${center ? 'justify-center' : ''}`}>
+        <span className="size-2 rounded-full bg-accent-500" /> {eyebrow}
+      </p>
+      <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink md:text-[2.75rem] md:leading-[1.1]">{title}</h2>
       {intro && <p className="mt-4 text-lg text-muted">{intro}</p>}
     </div>
   )
@@ -86,7 +116,7 @@ export function IconBadge({ name, className = 'left-4 top-4', size = 'md' }: { n
   const s = { sm: 'size-10 rounded-lg', md: 'size-12 rounded-xl', lg: 'size-14 rounded-2xl' }[size]
   const i = { sm: 'size-5', md: 'size-6', lg: 'size-7' }[size]
   return (
-    <span className={`absolute z-10 grid place-items-center bg-brand-600 text-white shadow-lg ring-4 ring-white/70 ${s} ${className}`}>
+    <span className={`absolute z-10 grid place-items-center bg-accent-500 text-brand-950 shadow-lg ring-4 ring-brand-950/20 ${s} ${className}`}>
       <Icon name={name} className={i} />
     </span>
   )
@@ -105,19 +135,17 @@ export function HowWeWork({ image = img('teamOffice', 1000, 1100), icon = 'peopl
     <section className="bg-sand py-20 md:py-28">
       <div className="container-x grid gap-14 lg:grid-cols-2 lg:items-center">
         <div className="relative">
-          <img src={image} alt="" loading="lazy" className="aspect-[4/3] w-full rounded-3xl object-cover shadow-xl lg:aspect-[5/6]" />
+          <img src={image} alt="" loading="lazy" className="aspect-[4/3] w-full rounded-[var(--radius-card)] object-cover shadow-xl lg:aspect-[5/6]" />
           <IconBadge name={icon} size="lg" className="left-6 top-6" />
         </div>
         <div>
           <SectionTitle eyebrow="Il metodo" title="Come lavoriamo" intro="Un percorso semplice e trasparente, dal primo contatto alla gestione quotidiana." />
-          <ol className="mt-10 space-y-6">
+          <ol className="mt-10 grid gap-4 sm:grid-cols-2">
             {steps.map((s) => (
-              <li key={s.n} className="flex gap-5">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-600 font-extrabold text-white">{s.n}</span>
-                <div>
-                  <h3 className="text-lg font-bold">{s.title}</h3>
-                  <p className="mt-1 text-muted">{s.text}</p>
-                </div>
+              <li key={s.n} className="card-dark p-6">
+                <span className="grid size-11 place-items-center rounded-lg bg-accent-500 font-bold text-brand-950">{s.n}</span>
+                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-1 text-sm text-white/65">{s.text}</p>
               </li>
             ))}
           </ol>
